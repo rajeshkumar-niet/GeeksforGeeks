@@ -23,11 +23,10 @@ class GFG {
 }
 // } Driver Code Ends
 
-
 class Solution {
     
+    // Tabulation DP : time 0.52
     public int findMaxSum(int arr[]) {
-        
         if(arr.length <= 2){
             return Math.max(arr[0], arr[1]);
         }
