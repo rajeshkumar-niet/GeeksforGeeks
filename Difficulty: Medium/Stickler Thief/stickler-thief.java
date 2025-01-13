@@ -25,36 +25,54 @@ class GFG {
 
 
 class Solution {
-    // DP TLE at 10/1115
-    static int recu(int idx, int[] arr, int[] dp){
-        if(idx >= arr.length) return 0;
-        
-        if(dp[idx] != -1){
-            return dp[idx];
-        }
-        
-        int taken = arr[idx] + recu(idx+2, arr, dp);
-        int notTaken = recu(idx+1, arr, dp);
-        
-        dp[idx] =  Math.max(taken, notTaken);
-        
-        return dp[idx];
-        
-    }
-    // Function to find the maximum money the thief can get.
+    
     public int findMaxSum(int arr[]) {
-        // Your code here
+        
         if(arr.length <= 2){
             return Math.max(arr[0], arr[1]);
         }
         int[] dp = new int[arr.length + 2];
-        Arrays.fill(dp, -1);
-        return recu(0, arr, dp);
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+        
+        for(int i = 2; i < arr.length; i++){
+            int take = arr[i] + dp[i-2];
+            int notTake = dp[i-1];
+            dp[i] = Math.max(take, notTake);
+        }
+        return dp[arr.length - 1];
     }
     
+    // // Method 2 :  time takes 0.58 Memoization
+    // static int recu(int idx, int[] arr, int[] dp){
+    //     if(idx >= arr.length) return 0;
+        
+    //     if(dp[idx] != -1){
+    //         return dp[idx];
+    //     }
+        
+    //     int taken = arr[idx] + recu(idx+2, arr, dp);
+    //     int notTaken = recu(idx+1, arr, dp);
+        
+    //     dp[idx] =  Math.max(taken, notTaken);
+        
+    //     return dp[idx];
+        
+    // }
+    // // Function to find the maximum money the thief can get.
+    // public int findMaxSum(int arr[]) {
+    //     // Your code here
+    //     if(arr.length <= 2){
+    //         return Math.max(arr[0], arr[1]);
+    //     }
+    //     int[] dp = new int[arr.length + 2];
+    //     Arrays.fill(dp, -1);
+    //     return recu(0, arr, dp);
+    // }
     
     
-    // Recursion TLE at 10/1115
+    
+    // Method 1 :  TLE at 10/1115
     // static int recu(int idx, int[] arr){
     //     if(idx >= arr.length) return 0;
         
